@@ -1,6 +1,10 @@
 package br.com.stoom.store.controller;
 
+import br.com.stoom.store.business.BrandBO;
+import br.com.stoom.store.business.CategoryBO;
 import br.com.stoom.store.business.ProductBO;
+import br.com.stoom.store.model.Brand;
+import br.com.stoom.store.model.Category;
 import br.com.stoom.store.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +20,12 @@ public class ProductController {
 
     @Autowired
     private ProductBO productService;
+
+    @Autowired
+    private CategoryBO categoryService;
+
+    @Autowired
+    private BrandBO brandService;
 
     @GetMapping(value = "/")
     public ResponseEntity<List<Product>> findAll() {
@@ -64,5 +74,88 @@ public class ProductController {
         }
     }
 
+    @PostMapping(value = "/{id}/categories")
+    public ResponseEntity<Product> addCategory(@PathVariable("id") Long id, @RequestBody Category c){
+        Product pData = productService.findById(id);
 
+        if(pData != null){
+            long cId = c.getId();
+            if(cId != 0L){
+                Category cData = categoryService.findById(cId);
+                if(cData == null ){
+                    categoryService.save(c);
+                }
+
+                if(!pData.getCategories().stream().anyMatch(cat -> cat.getId() == cId)){
+                    pData.addCategory(cData);
+                }
+
+                productService.save(pData);
+                return new ResponseEntity<>(pData, HttpStatus.OK);
+            }
+        }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    }
+
+    @DeleteMapping(value = "/{id}/categories")
+    public ResponseEntity<Product> removeCategory(@PathVariable("id") Long id, @RequestBody Category c){
+        Product pData = productService.findById(id);
+
+        if(pData != null){
+            long cId = c.getId();
+            if(cId != 0L){
+                Category cData = categoryService.findById(cId);
+                if(cData != null ) {
+                    pData.removeCategory(cId);
+                    productService.save(pData);
+                    return new ResponseEntity<>(pData, HttpStatus.OK);
+                }
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    }
+
+    @PostMapping(value = "/{id}/brands")
+    public ResponseEntity<Product> addBrand(@PathVariable("id") Long id, @RequestBody Brand b){
+        Product pData = productService.findById(id);
+
+        if(pData != null){
+            long bId = b.getId();
+            if(bId != 0L){
+                Brand bData = brandService.findById(bId);
+                if(bData == null ){
+                    brandService.save(b);
+                }
+
+                if(!pData.getCategories().stream().anyMatch(cat -> cat.getId() == bId)){
+                    pData.addBrand(bData);
+                }
+
+                productService.save(pData);
+                return new ResponseEntity<>(pData, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    }
+
+    @DeleteMapping(value = "/{id}/brands")
+    public ResponseEntity<Product> removeBrand(@PathVariable("id") Long id, @RequestBody Brand b) {
+        Product pData = productService.findById(id);
+
+        if (pData != null) {
+            long bId = b.getId();
+            if (bId != 0L) {
+                Brand bData = brandService.findById(bId);
+                if (bData != null) {
+                    pData.removeBrand(bId);
+                    productService.save(pData);
+                    return new ResponseEntity<>(pData, HttpStatus.OK);
+                }
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
