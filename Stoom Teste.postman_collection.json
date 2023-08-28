@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "de302dc0-6b79-4bf3-bff3-96b5a3e57219",
+		"name": "Stoom Teste",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "8430113"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "READ ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/api/products/"
+					},
+					"response": []
+				},
+				{
+					"name": "READ BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/products/53",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"53"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sku\": \"102\",\r\n    \"name\": \"cafeteira\",\r\n    \"price\": 20.80,\r\n    \"published\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/api/products/"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sku\": \"0052\",\r\n    \"name\": \"capsula\",\r\n    \"price\": 1.80,\r\n    \"published\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/api/products/52"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/api/products/54"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Store",
+			"item": [
+				{
+					"name": "FIND PUBLISHED PRODUCTS BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/api/store/products/004"
+					},
+					"response": []
+				},
+				{
+					"name": "FIND PUBLISHED PRODUCTS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/api/store/products/"
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/api/store/search/00"
+					},
+					"response": []
+				},
+				{
+					"name": "FIND PUBLISHED BRANDS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": ""
+					},
+					"response": []
+				},
+				{
+					"name": "FIND PUBLISHED CATEGORIES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
