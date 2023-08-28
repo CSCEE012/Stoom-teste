@@ -14,6 +14,7 @@ public class CategoryBO implements ICategoryBO {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
     @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
@@ -22,6 +23,22 @@ public class CategoryBO implements ICategoryBO {
     @Override
     public Category findById(Long id) {
         Optional<Category> category = categoryRepository.findById(id);
+
+        if(category.isPresent()){
+            return category.get();
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public List<Category> findAllPublishedCategories() {
+        return categoryRepository.findCategoriesByPublished(true);
+    }
+
+    @Override
+    public Category findPublishedCategoryById(Long id) {
+        Optional<Category> category = categoryRepository.findCategoryByPublishedAndId(true, id);
 
         if(category.isPresent()){
             return category.get();

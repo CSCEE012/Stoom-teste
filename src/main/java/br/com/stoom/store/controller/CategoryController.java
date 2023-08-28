@@ -16,11 +16,11 @@ public class CategoryController {
 
 
     @Autowired
-    private CategoryBO categoyService;
+    private CategoryBO categoryService;
 
     @GetMapping(value = "/")
     public ResponseEntity<List<Category>> findAll() {
-        List<Category> c = categoyService.findAll();
+        List<Category> c = categoryService.findAll();
         if(!c.isEmpty())
             return new ResponseEntity<>(c, HttpStatus.OK);
         else
@@ -29,7 +29,7 @@ public class CategoryController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Category> findById(@PathVariable("id") Long id) {
-        Category c = categoyService.findById(id);
+        Category c = categoryService.findById(id);
         if(null!=c)
             return new ResponseEntity<>(c, HttpStatus.OK);
         else
@@ -39,7 +39,7 @@ public class CategoryController {
     @PostMapping(value = "/")
     public ResponseEntity<Category> createProduct(@RequestBody Category c) {
         try{
-            Category _c = categoyService.save(c);
+            Category _c = categoryService.save(c);
             return new ResponseEntity<>(_c, HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -48,7 +48,7 @@ public class CategoryController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Category> updateProduct(@PathVariable("id") Long id, @RequestBody Category c){
-        Category _c = categoyService.update(id, c);
+        Category _c = categoryService.update(id, c);
         if(null!=_c)
             return new ResponseEntity<>(_c, HttpStatus.OK);
         else
@@ -58,7 +58,7 @@ public class CategoryController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") Long id){
         try{
-            categoyService.delete(id);
+            categoryService.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

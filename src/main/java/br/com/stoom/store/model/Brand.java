@@ -23,6 +23,9 @@ public class Brand {
     @JsonIgnore
     private Set<Product> products = new HashSet<>();
 
+    @Column(name = "published")
+    private Boolean published;
+
     public Long getId() {
         return id;
     }
@@ -41,6 +44,14 @@ public class Brand {
 
     public Set<Product> getProducts() {
         return products;
+    }
+
+    public Boolean getPublished() {
+        return published;
+    }
+
+    public void setPublished(Boolean published) {
+        this.published = published;
     }
 
     public void setProducts(Set<Product> products) {

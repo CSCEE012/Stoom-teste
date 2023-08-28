@@ -21,7 +21,10 @@ public class Category {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "categories")
     @JsonIgnore
-    private Set<Product> products = new HashSet<>();;
+    private Set<Product> products = new HashSet<>();
+
+    @Column(name = "published")
+    private Boolean published;
 
     public Long getId() {
         return id;
@@ -41,6 +44,14 @@ public class Category {
 
     public Set<Product> getProducts() {
         return products;
+    }
+
+    public Boolean getPublished() {
+        return published;
+    }
+
+    public void setPublished(Boolean published) {
+        this.published = published;
     }
 
     public void setProducts(Set<Product> products) {

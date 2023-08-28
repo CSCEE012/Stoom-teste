@@ -7,6 +7,8 @@ import java.util.List;
 public interface ICategoryBO {
     List<Category> findAll();
     Category findById(Long id);
+    List<Category> findAllPublishedCategories();
+    Category findPublishedCategoryById(Long id);
     Category save(Category category);
     Category update(Long id, Category category);
     void delete(Long id);

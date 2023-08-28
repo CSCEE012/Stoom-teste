@@ -31,6 +31,22 @@ public class BrandBO implements IBrandBO {
     }
 
     @Override
+    public List<Brand> findAllPublishedBrands() {
+
+        return brandRepository.findBrandsByPublished(true);
+    }
+
+    @Override
+    public Brand findPublishedBrandById(Long id) {
+        Optional<Brand> brand = brandRepository.findBrandByPublishedAndId(true, id);
+
+        if(brand.isPresent()){
+            return brand.get();
+        }
+        return null;
+    }
+
+    @Override
     public Brand save(Brand brand) {
         return brandRepository.save(brand);
     }

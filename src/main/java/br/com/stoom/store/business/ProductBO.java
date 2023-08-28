@@ -32,6 +32,27 @@ public class ProductBO implements IProductBO {
     }
 
     @Override
+    public List<Product> findAllPublishedProducts(){
+        return productRepository.findProductsByPublished(true);
+    }
+
+    @Override
+    public Product findPublishedById(Long id) {
+        Optional<Product> product = productRepository.findProductByPublishedAndId(true, id);
+
+        if(product.isPresent()){
+            return product.get();
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public List<Product> findAllPublishedProductsByKeyWord(String keyWord){
+        return productRepository.findProductsByNameContainingIgnoreCaseOrSkuContainingIgnoreCaseAndPublished( keyWord, keyWord, true);
+    }
+
+    @Override
     public Product save(Product product) {
         return productRepository.save(product);
     }
@@ -54,5 +75,6 @@ public class ProductBO implements IProductBO {
     public void delete(Long id) {
         productRepository.deleteById(id);
     }
+
 
 }

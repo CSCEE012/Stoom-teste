@@ -37,6 +37,9 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
+    @Column(name = "published")
+    private Boolean published;
+
     public Long getId() {
         return id;
     }
@@ -83,6 +86,14 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Boolean getPublished() {
+        return published;
+    }
+
+    public void setPublished(Boolean published) {
+        this.published = published;
     }
 
     public void addCategory(Category category) {
